@@ -18,11 +18,11 @@ static __inline unsigned long long rdtsc(void)
 #define CTR rcx
 #endif
 static __inline uint64_t rdtscp(void) {
-  uint32_t lo, hi;
-  __asm__ volatile ("rdtscp"
-      : /* outputs */ "=a" (lo), "=d" (hi)
-      : /* no inputs */
-      : /* clobbers */ "%CTR");
-  return (uint64_t)lo | (((uint64_t)hi) << 32);
+	uint32_t lo, hi;
+	asm volatile ("rdtscp"
+	    : /* outputs */ "=a" (lo), "=d" (hi)
+	    : /* no inputs */
+	    : /* clobbers */ "%CTR");
+	return (uint64_t)lo | (((uint64_t)hi) << 32);
 }
 #endif
