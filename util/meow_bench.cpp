@@ -23,6 +23,12 @@
 #define __rdtscp(x) read_pmu()
 #endif
 
+#ifdef __SUNPRO_CC
+#include <sunpro_inline.h>
+#define __rdtsc() rdtsc()
+#define __rdtscp(x) rdtscp()
+#endif
+
 #ifndef _WIN32
 static int unsigned
 _rotl(int unsigned Value, int Count)

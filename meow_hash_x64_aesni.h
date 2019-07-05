@@ -128,7 +128,11 @@
 #endif
 #include <intrin.h>
 #else
+#ifndef __SUNPRO_CC
 #include <x86intrin.h>
+#else
+#include <sunmedia_intrin.h>
+#endif
 #endif
 
 #define meow_u8 char unsigned
@@ -139,7 +143,7 @@
 #define meow_umm long long unsigned
 #define MeowU64From(A, I) (_mm_extract_epi64((A), (I)))
 #elif __i386__  || _M_IX86
-#define meow_umm int unsigned
+#define meow_umm int unsigned long long
 #define MeowU64From(A, I) (*(meow_u64 *)&(A))
 #else
 #error Cannot determine architecture to use!

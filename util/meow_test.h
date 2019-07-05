@@ -20,7 +20,7 @@
 #define CATCH catch(...)
 #endif
 
-#if __APPLE__
+#if __APPLE__ || __SUNPRO_CC
 // NOTE: Apple Xcode/clang seems to not include aligned_alloc in the standard
 // library, so emulate via posix_memalign.
 static void* aligned_alloc(size_t alignment, size_t size)
