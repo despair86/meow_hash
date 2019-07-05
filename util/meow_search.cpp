@@ -472,6 +472,7 @@ IngestDirectoriesRecursively(test_group *Group, char *Path)
             char *EntryName = AllocPath(Path, Stem);
             if(strcmp(Stem, ".") && strcmp(Stem, ".."))
             {
+#ifndef __sun
                 if(Entry->d_type == DT_UNKNOWN)
                 {
                     ++Group->AccessFailureCount;
@@ -484,6 +485,7 @@ IngestDirectoriesRecursively(test_group *Group, char *Path)
                 {
                     IngestFile(Group, EntryName);
                 }
+#endif
             }
         }
         
