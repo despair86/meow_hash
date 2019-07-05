@@ -7,7 +7,6 @@ static __inline unsigned long long rdtsc(void)
 	asm volatile ("rdtsc" : "=A" (x));
 	return x;
 }
-#define CTR ecx
 #elif defined(__x86_64__) || defined(__amd64__)
 static __inline unsigned long long rdtsc(void)
 {
@@ -15,14 +14,17 @@ static __inline unsigned long long rdtsc(void)
 	asm volatile ("rdtsc" : "=a"(lo), "=d"(hi));
 	return ( (unsigned long long)lo)|( ((unsigned long long)hi)<<32 );
 }
-#define CTR rcx
 #endif
 static __inline uint64_t rdtscp(void) {
 	uint32_t lo, hi;
 	asm volatile ("rdtscp"
 	    : /* outputs */ "=a" (lo), "=d" (hi)
 	    : /* no inputs */
-	    : /* clobbers */ "%CTR");
+#ifdef __i386__
+	    : /* clobbers */ "%ecx");
+#elif __amd64__ || __x86_64__
+	    : /* clobbers */ "%rcx");
+#endif
 	return (uint64_t)lo | (((uint64_t)hi) << 32);
 }
 #endif
